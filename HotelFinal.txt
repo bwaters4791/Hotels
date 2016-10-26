@@ -1,0 +1,218 @@
+var roomType = ["Queen", "King", "Suite"];  //Available room types
+var mealPlan = ["Breakfast", "All meals", "None"] ;     //Available meal plans
+var discountCodes = ["AAA", "GSC", "PR1"];   //Available discount codes
+
+//Declaring our variables to store data collected from the user, perform calculations and trigger loops
+var userRoomChoice;
+var userStayLength;
+var userMealChoice;
+var userDiscountCode;
+var totalDiscount = 0;
+var userMealSelection;
+var checkoutTotal = 0;
+var mealTotal;
+var additionalRoom = "yes";
+var failSafe = 0;
+var failSafe2 = 0;
+var failSafe3 = 1;
+roomType[1] = parseInt(109);  //Associating Queen roomType with the # 109 so we can use it for calculations, and so on for other rooms
+roomType[2] = parseInt(139);
+roomType[3] = parseInt(169);
+discountCodes[1] = parseFloat(.05) //Giving AAA a value of 5%
+discountCodes[3] = parseFloat(.10) //Giving PR1 a value of 10%
+
+//A short function to make all ordered information easily readable for the user
+var checkOut = function(){
+document.write("Renting " + userRoomChoice + " room for " + userStayLength  + " days, with " + userMealChoice + " included coming to a total of $" + checkoutTotal + "<br />");
+}
+
+
+
+//Using function FindCustomerPreference to determine what they want their stay to entitle
+var FindCustomerPreference = function(){
+userRoomChoice = prompt("Please enter what type of room you would like to book, we currently have 'King', 'Queen' and 'Suite' rooms available.");
+
+
+//you may notice all checks are ran twice incase the user typed with a capital first letter 
+//This function performs a check on the data stored in userRoomChoice to make sure the correct keyword is used
+//If anything other than these keywords are entered it triggers the failsafe
+//making failSafe 1 causes a loop to kick in once we execute the function FindCustomerPreference() later on
+if(userRoomChoice === "king"){
+
+ }else{if(userRoomChoice === "King"){
+ 
+   }else{if(userRoomChoice === "Queen"){
+   
+      }else{if(userRoomChoice === "queen"){
+    
+        }else{if(userRoomChoice === "suite"){
+      
+          }else{if(userRoomChoice === "Suite"){
+          
+            }else{alert("Sorry there was a mistake in your room choice, please try again")
+	     failSafe = 1
+}
+}
+}
+}
+}
+}
+}
+
+
+
+//function FindDaysAndMeals collects how long the customer wants to have the room they requested
+//And what meal plan, if any, will be associated with that room and totals out the cost of the two
+//again, another check is performed to make sure they entered the fight keyowrd or it initiates another failsafe to trigger a loop
+//that will alert the user they made a typing error and re-asks the question
+var FindDaysAndMeals = function(){
+userStayLength = prompt("Please enter how long you will be staying with us, in days.");
+userMealChoice = prompt("Would you like a Meal plan? enter 'Breakfast', 'All meals', or 'no meals' if you do not want a Meal plan.")
+
+if(userMealChoice === "Breakfast"){
+}else{if(userMealChoice === "Breakfast"){
+ mealTotal = 7 * userStayLength
+ }else{if(userMealChoice === "All meals"){
+   mealTotal = 28 * userStayLength
+   }else{if(userMealChoice === "No meals"){
+     mealTotal = 0
+      }else{if(userMealChoice === "breakfast"){
+        mealTotal = 7 * userStayLength
+         }else{if(userMealChoice === "all meals"){
+          mealTotal = 28 * userStayLength
+           }else{if(userMealChoice === "no meals"){
+            mealTotal = 0
+             }else{alert("Sorry there was a mistake with your meal choice, please try again");
+              failSafe2 = 1
+}	
+}
+}
+}
+}
+}
+}
+}
+
+
+
+//This function is dedicated to applying the discount code and totaling the order it works slightly different than my other loops
+//going into this loop the failsafe for is already active since i initialized failsafe3 to 1 while declaring variables
+//the loop is only deactivated by the user entering a keyword
+//since codes are usually a special promotion deals I didnt supply the keywords in the prompt like my others
+var CalculateDecision = function(){
+while(failSafe3 === 1){
+  userDiscountCode = prompt("Enter a discount code, or type 'skip' to proceed")
+if(userDiscountCode === "GSC"){
+  if(userStayLength > 3){
+    userStayLength = userStayLength - 1
+    failSafe3 = 0
+}else{}
+   }else{if(userDiscountCode === "AAA"){
+     totalDiscount = discountCodes[1]
+     failSafe3 = 0   
+      }else{if(userDiscountCode === "PR1"){
+	totalDiscount = discountCodes[3]
+	failSafe3 = 0
+         }else{if(userDiscountCode === "skip"){
+          totalDiscount = 0
+          failSafe3 = 0
+    	 }else{alert("Your discount code is invalid, please try again")
+          failSafe3 = 1
+}
+}
+}
+}
+}
+
+//these calculations add the price of a meal plan, if any, to the discounted(again, if any) room price 
+//for the length of their stay then calculates the tax of the room and finds the sum
+
+
+if(userRoomChoice === "Queen"){
+                                                                 //this part will find only the taxed price      this finds the % off their room depending on the code used
+                       //meal plan + (room choice * days rented) + (room choice * days rented) *12% tax   - (room choice * days rented) * discount   
+ checkoutTotal = Math.ceil(mealTotal + roomType[1] * userStayLength + (roomType[1] * userStayLength) * .12 - (roomType[1] * userStayLength) * totalDiscount)
+}else{}
+if(userRoomChoice === "King"){
+ checkoutTotal = Math.ceil(mealTotal + roomType[2] * userStayLength + (roomType[2] * userStayLength) * .12 - (roomType[2] * userStayLength) * totalDiscount)
+}else{}
+if(userRoomChoice === "Suite"){
+ checkoutTotal = Math.ceil(mealTotal + roomType[3] * userStayLength + (roomType[3] * userStayLength) * .12 - (roomType[3] * userStayLength) * totalDiscount)
+}else{}
+if(userRoomChoice === "queen"){
+ checkoutTotal = Math.ceil(mealTotal + roomType[1] * userStayLength + (roomType[1] * userStayLength) * .12 - (roomType[1] * userStayLength) * totalDiscount)
+}else{}
+if(userRoomChoice === "king"){
+ checkoutTotal = Math.ceil(mealTotal + roomType[2] * userStayLength + (roomType[2] * userStayLength) * .12 - (roomType[2] * userStayLength) * totalDiscount)
+}else{}
+if(userRoomChoice === "suite"){
+ checkoutTotal = Math.ceil(mealTotal + roomType[3] * userStayLength - (roomType[3] * userStayLength) * totalDiscount + (roomType[3] * userStayLength) * .12)
+}else{}
+}
+
+
+//All the mass of code until this point has been creating modules and loops, they are executed here
+//I start by again initializing my failsafe3 (the check for discount codes) to 1 to re-active the loop that the user
+//deactivates by entering the 'hidden' keyword
+
+failSafe3 = 1
+FindCustomerPreference();
+while(failSafe === 1){
+ failSafe = 0
+ FindCustomerPreference();
+}
+FindDaysAndMeals();
+while(failSafe2 === 1){
+ failSafe2 = 0
+ FindDaysAndMeals();
+}
+CalculateDecision();
+checkOut();
+totalDiscount = 0;
+
+
+//Here we see if the user would like to book multiple rooms and run through the same batch of code as many times as they want
+while(additionalRoom === "yes"){
+additionalRoom = prompt("would you like to book another room?(Please enter 'yes' or 'no')")
+
+if(additionalRoom === "yes"){
+
+failSafe3 = 1
+FindCustomerPreference();
+while(failSafe === 1){
+ failSafe = 0
+ FindCustomerPreference();
+}
+FindDaysAndMeals();
+while(failSafe2 === 1){
+ failSafe2 = 0
+ FindDaysAndMeals();
+}
+CalculateDecision();
+checkOut();
+}else{}
+totalDiscount = 0;
+
+
+if(additionalRoom === "Yes"){
+failSafe3 = 1
+FindCustomerPreference();
+while(failSafe === 1){
+ failSafe = 0
+ FindCustomerPreference();
+}
+FindDaysAndMeals();
+while(failSafe2 === 1){
+ failSafe2 = 0
+ FindDaysAndMeals();
+}
+CalculateDecision();
+checkOut();
+}else{}
+totalDiscount = 0;
+}
+
+//I set totalDiscount to 0 after the calculations are done 
+//so the value doesnt carry over into the next iteration of the loop
+
+
